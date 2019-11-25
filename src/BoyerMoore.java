@@ -26,8 +26,8 @@ public class BoyerMoore implements AM {
     }
 
     // A pattern searching function that uses Bad Character Heuristic of Boyer Moore Algorithm
-    public List<Integer> search(String text, String pattern) {
-        List<Integer> result = new ArrayList<>();
+    public Result search(String text, String pattern) {
+        Result result = new Result();
         int m = pattern.length();
         int n = text.length();
 
@@ -48,7 +48,7 @@ public class BoyerMoore implements AM {
 
             // the pattern is present -> j = -1
             if (j < 0) {
-                result.add(s);
+                result.addIndex(s);
                 // shift to last occurrence of the character
                 s += (s + m < n) ? m - badchar[text.charAt(s + m)] : 1;
 
@@ -66,6 +66,6 @@ public class BoyerMoore implements AM {
 
         System.out.println("Input : text = " + text + ", pattern = " + pattern);
 
-        info.parent.write(search(text, pattern).toArray());
+        info.parent.write(search(text, pattern));
     }
 }
