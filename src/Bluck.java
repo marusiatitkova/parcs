@@ -23,24 +23,30 @@ public class Bluck{
         int M = pattern.length();
 
         List<String> texts = new ArrayList<>();
+        List<Integer> shifts = new ArrayList<>();
 
         for (int i = 0; i < N; i++) {
             int l = i * n;
             int r = (i + 1) * n;
             String textPart = text.substring(l, r);
             texts.add(textPart);
+            shifts.add(l);
             if (i < N - 1) {
                 int ll = r - (M - 1);
-                int rr = r + M;
+                int rr = r + M - 1;
                 String text1 = text.substring(ll, rr);
                 texts.add(text1);
+                shifts.add(ll);
             }
         }
 
         List<point> points = new ArrayList<>();
         List<channel> channels = new ArrayList<>();
 
-        for (String t : texts) {
+        for (int i = 0; i < texts.size(); i++) {
+            String t = texts.get(i);
+            Integer shift = shifts.get(i);
+
             point p = info.createPoint();
             channel c = p.createChannel();
 
@@ -59,7 +65,7 @@ public class Bluck{
             if (ins.size() > 0) {
                 System.out.println("Pattern ins : {");
                 for (int index : ins) {
-                    System.out.print(index + " ");
+                    System.out.print(shift + index + " ");
                 }
                 System.out.println("}");
             }
