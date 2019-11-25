@@ -4,11 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoyerMoore implements AM {
-    int badchar[];
+    static int NO_OF_CHARS = 256;
 
     //A utility function to get maximum of two integers
     static int max(int a, int b) {
         return (a > b) ? a : b;
+    }
+
+    static void badCharHeuristic( String pattern, int size,int badchar[])
+    {
+        int i;
+
+        // Initialize all occurrences as -1
+        for (i = 0; i < NO_OF_CHARS; i++)
+            badchar[i] = -1;
+
+        // Fill the actual value of last occurrence
+        // of a character
+        for (i = 0; i < size; i++)
+            badchar[(int) pattern.charAt(i)] = i;
     }
 
     // A pattern searching function that uses Bad Character Heuristic of Boyer Moore Algorithm
@@ -16,6 +30,13 @@ public class BoyerMoore implements AM {
         List<Integer> result = new ArrayList<>();
         int m = pattern.length();
         int n = text.length();
+
+        int badchar[] = new int[NO_OF_CHARS];
+
+      /* Fill the bad character array by calling
+         the preprocessing function badCharHeuristic()
+         for given pattern */
+        badCharHeuristic(pattern, m, badchar);
 
         int s = 0;  // s is shift of the pattern with respect to text
         while (s <= (n - m)) {
