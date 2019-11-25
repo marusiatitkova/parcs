@@ -43,33 +43,36 @@ public class Bluck{
         List<point> points = new ArrayList<>();
         List<channel> channels = new ArrayList<>();
 
-        for (int i = 0; i < texts.size(); i++) {
-            String t = texts.get(i);
-            Integer shift = shifts.get(i);
+        for (int j = 0; j < 100; j++) {
+            for (int i = 0; i < texts.size(); i++) {
+                String t = texts.get(i);
+                Integer shift = shifts.get(i);
 
-            point p = info.createPoint();
-            channel c = p.createChannel();
+                point p = info.createPoint();
+                channel c = p.createChannel();
 
-            points.add(p);
-            channels.add(c);
+                points.add(p);
+                channels.add(c);
 
-            Input input = new Input(t, pattern);
+                Input input = new Input(t, pattern);
 
-            p.execute("BoyerMoore");
-            c.write(input);
+                p.execute("BoyerMoore");
+                c.write(input);
 
-            System.out.println("Waiting for result .. ");
+                System.out.println("Waiting for result .. ");
 
-            Result result = (Result)( c.readObject());
-            List<Integer> ins = result.getRes();
-            if (ins.size() > 0) {
-                System.out.println("Pattern ins : {");
-                for (int index : ins) {
-                    System.out.print(shift + index + " ");
+                Result result = (Result)( c.readObject());
+                List<Integer> ins = result.getRes();
+                if (ins.size() > 0) {
+                    System.out.println("Pattern ins : {");
+                    for (int index : ins) {
+                        System.out.print(shift + index + " ");
+                    }
+                    System.out.println("}");
                 }
-                System.out.println("}");
             }
         }
+
 
         curtask.end();
     }
