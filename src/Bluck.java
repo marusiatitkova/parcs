@@ -74,13 +74,8 @@ public class Bluck{
         curtask.end();
     }
     public static String textFromFile(String filename) throws Exception {
-        String text = "";
 
-        Scanner sc = new Scanner(new File(filename));
-
-        while (sc.hasNext()) {
-            text += sc.nextLine();
-        }
+        String text = new Scanner(new File(filename)).useDelimiter("\\Z").next();
 
         return text;
     }
