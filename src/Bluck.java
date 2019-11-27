@@ -12,9 +12,8 @@ public class Bluck{
         task curtask = new task();
         curtask.addJarFile("BoyerMoore.jar");
 
-        List<String> slist = fromFile( curtask.findFile("input") );
-        String text = slist.get(0);
-        String pattern = slist.get(1);
+        String text = textFromFile( curtask.findFile("input") );
+        String pattern = patternFromFile( curtask.findFile("pattern"));
 
         AMInfo info = new AMInfo(curtask, null);
 
@@ -76,18 +75,24 @@ public class Bluck{
 
         curtask.end();
     }
-    public static List<String> fromFile(String filename) throws Exception {
-        List<String> s = new ArrayList<>();
+    public static String textFromFile(String filename) throws Exception {
+        String text = "";
 
         Scanner sc = new Scanner(new File(filename));
 
-        String text = sc.nextLine();
-        String pattern = sc.nextLine();
+        while (sc.hasNext()) {
+            text += sc.nextLine();
+        }
 
-        s.add(text);
-        s.add(pattern);
-
-        return s;
+        return text;
     }
+    public static String patternFromFile(String filename) throws Exception {
+        String pattern = "";
 
+        Scanner sc = new Scanner(new File(filename));
+
+        pattern = sc.nextLine();
+
+        return pattern;
+    }
 }
